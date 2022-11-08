@@ -5,6 +5,7 @@ export const Home = () => {
     <div>
       <Navigation />
       <h2>Home Page</h2>
+      <hr />
     </div>
   );
 };
