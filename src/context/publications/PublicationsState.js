@@ -5,6 +5,7 @@ import {
   LOAD_PUBLICATIONS,
   PUBLICATIONS_ERROR,
   LOAD_PUBLICATION,
+  UNLOAD_PUBLICATION,
   PUBLICATION_ERROR,
 } from '../types';
 import PublicationsContext from './publicationsContext';
@@ -15,6 +16,7 @@ const PublicationsState = ({ children }) => {
     publications: [],
     publication: null,
     isLoading: true,
+    isPublicationLoading: true,
     publicationsError: null,
   };
 
@@ -72,16 +74,22 @@ const PublicationsState = ({ children }) => {
     [dispatch]
   );
 
+  const unloadPublication = useCallback(() => {
+    dispatch({ type: UNLOAD_PUBLICATION, payload: null });
+  }, [dispatch]);
+
   return (
     <PublicationsContext.Provider
       value={{
         publications: state.publications,
         publication: state.publication,
         isLoading: state.isLoading,
+        isPublicationLoading: state.isPublicationLoading,
         publicationsError: state.publicationsError,
         publicationError: state.publicationError,
         loadPublications,
         loadPublication,
+        unloadPublication,
       }}
     >
       {children}

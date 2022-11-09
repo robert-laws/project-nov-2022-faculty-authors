@@ -7,8 +7,12 @@ export const Publication = () => {
 
   // const [publicationDetails, setPublicationDetails] = useState(null);
 
-  const { publication, isLoading, publicationError, loadPublication } =
-    useContext(PublicationsContext);
+  const {
+    publication,
+    isPublicationLoading,
+    publicationError,
+    loadPublication,
+  } = useContext(PublicationsContext);
 
   useEffect(() => {
     if (id) {
@@ -18,12 +22,14 @@ export const Publication = () => {
 
   return (
     <div>
-      {isLoading && !publicationError ? (
+      {isPublicationLoading && !publicationError ? (
         <p>Loading...</p>
       ) : (
         <p>
           Title:{' '}
-          {publication.title ? publication.title : publication.sourceTitle}
+          {publication && publication.title
+            ? publication.title
+            : publication.sourceTitle}
         </p>
       )}
     </div>

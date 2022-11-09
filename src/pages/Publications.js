@@ -3,14 +3,23 @@ import PublicationsContext from '../context/publications/publicationsContext';
 import { ListItem } from '../components';
 
 export const Publications = () => {
-  const { publications, isLoading, publicationsError, loadPublications } =
-    useContext(PublicationsContext);
+  const {
+    publications,
+    isLoading,
+    publicationsError,
+    loadPublications,
+    unloadPublication,
+  } = useContext(PublicationsContext);
 
   useEffect(() => {
     if (publications.length === 0) {
       loadPublications();
     }
-  }, [publications, loadPublications]);
+
+    return () => {
+      unloadPublication();
+    };
+  }, [publications, loadPublications, unloadPublication]);
 
   return (
     <div>

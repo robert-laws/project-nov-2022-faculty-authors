@@ -2,6 +2,7 @@ import {
   LOAD_PUBLICATIONS,
   PUBLICATIONS_ERROR,
   LOAD_PUBLICATION,
+  UNLOAD_PUBLICATION,
   PUBLICATION_ERROR,
 } from '../types';
 
@@ -29,6 +30,15 @@ const publicationsReducer = (state, action) => {
         ...state,
         publication: action.payload,
         isLoading: false,
+        isPublicationLoading: false,
+        publicationError: null,
+      };
+
+    case UNLOAD_PUBLICATION:
+      return {
+        ...state,
+        publication: null,
+        isPublicationLoading: true,
         publicationError: null,
       };
 
@@ -36,6 +46,7 @@ const publicationsReducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
+        isPublicationLoading: false,
         publicationError: action.payload,
       };
 
