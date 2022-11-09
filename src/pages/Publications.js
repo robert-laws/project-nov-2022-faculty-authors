@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PublicationsContext from '../context/publications/publicationsContext';
-import { ListItem } from '../components';
+import { ListItem, Navigation } from '../components';
 
 export const Publications = () => {
   const {
@@ -22,11 +22,10 @@ export const Publications = () => {
   }, [publications, loadPublications, unloadPublication]);
 
   return (
-    <div className='mx-auto max-w-7xl sm:px-6 lg:px-8'>
-      <h2>Publications</h2>
-      {isLoading && !publicationsError ? (
-        <p>Loading...</p>
-      ) : (
+    <>
+      <Navigation />
+      <div className='mx-auto max-w-7xl sm:px-6 lg:px-8'>
+        <h2>Publications</h2>
         <div className='px-4 sm:px-6 lg:px-8'>
           <div className='mt-8 flex flex-col'>
             <div className='-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8'>
@@ -69,20 +68,26 @@ export const Publications = () => {
                       </tr>
                     </thead>
                     <tbody className='divide-y divide-gray-200 bg-white'>
-                      {publications.map((publication) => (
-                        <ListItem
-                          key={publication.id}
-                          id={publication.id}
-                          author={`${publication.firstName} ${publication.lastName}`}
-                          title={
-                            publication.title
-                              ? publication.title
-                              : publication.sourceTitle
-                          }
-                          year={publication.year}
-                          documentType={publication.documentType}
-                        />
-                      ))}
+                      {isLoading && !publicationsError ? (
+                        <div>Loading...</div>
+                      ) : (
+                        <>
+                          {publications.map((publication) => (
+                            <ListItem
+                              key={publication.id}
+                              id={publication.id}
+                              author={`${publication.firstName} ${publication.lastName}`}
+                              title={
+                                publication.title
+                                  ? publication.title
+                                  : publication.sourceTitle
+                              }
+                              year={publication.year}
+                              documentType={publication.documentType}
+                            />
+                          ))}
+                        </>
+                      )}
                     </tbody>
                   </table>
                 </div>
@@ -90,8 +95,8 @@ export const Publications = () => {
             </div>
           </div>
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 
