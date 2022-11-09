@@ -22,7 +22,7 @@ export const Publications = () => {
   }, [publications, loadPublications, unloadPublication]);
 
   return (
-    <div>
+    <div className='mx-auto max-w-7xl sm:px-6 lg:px-8'>
       <h2>Publications</h2>
       {isLoading && !publicationsError ? (
         <p>Loading...</p>
