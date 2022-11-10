@@ -1,6 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Home, Publications, Publication } from './pages';
+import {
+  Home,
+  Publications,
+  Publication,
+  NewEntry,
+  About,
+  NotFound,
+} from './pages';
 
 function App() {
   return (
@@ -9,6 +16,9 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/publications' element={<Publications />} />
         <Route path='/publication/:id' element={<Publication />} />
+        <Route path='/new' element={<NewEntry />} />
+        <Route path='/about' element={<About />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </Router>
   );

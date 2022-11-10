@@ -25,7 +25,7 @@ export const Publications = () => {
     <>
       <Navigation />
       <div className='mx-auto max-w-7xl sm:px-6 lg:px-8'>
-        <h2>Publications</h2>
+        <h2 className='text-2xl font-bold mt-4'>Publications</h2>
         <div className='px-4 sm:px-6 lg:px-8'>
           <div className='mt-8 flex flex-col'>
             <div className='-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8'>

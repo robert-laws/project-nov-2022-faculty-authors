@@ -5,9 +5,9 @@ import Logo from '../images/book.svg';
 export const Navigation = () => {
   const navigation = [
     { name: 'Home', href: '/' },
-    { name: 'Publications', href: 'publications' },
-    { name: 'New Entry', href: '/' },
-    { name: 'About', href: '/' },
+    { name: 'Publications', href: '/publications' },
+    { name: 'New Entry', href: '/new' },
+    { name: 'About', href: '/about' },
   ];
 
   return (
