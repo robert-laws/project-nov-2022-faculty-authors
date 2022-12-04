@@ -1,6 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState, useMemo } from 'react';
 import PublicationsContext from '../context/publications/publicationsContext';
-import { ListItem, Navigation } from '../components';
+import { ListItem, Navigation, Pagination } from '../components';
+
+let pageSize = 10;
 
 export const Publications = () => {
   const {
@@ -10,6 +12,15 @@ export const Publications = () => {
     loadPublications,
     unloadPublication,
   } = useContext(PublicationsContext);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * pageSize;
+    const lastPageIndex = firstPageIndex + pageSize;
+
+    return publications.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, publications]);
 
   useEffect(() => {
     if (publications.length === 0) {
@@ -72,7 +83,7 @@ export const Publications = () => {
                         <div>Loading...</div>
                       ) : (
                         <>
-                          {publications.map((publication) => (
+                          {currentTableData.map((publication) => (
                             <ListItem
                               key={publication.id}
                               id={publication.id}
@@ -90,6 +101,12 @@ export const Publications = () => {
                       )}
                     </tbody>
                   </table>
+                  <Pagination
+                    currentPage={currentPage}
+                    totalCount={publications.length}
+                    pageSize={pageSize}
+                    onPageChange={(page) => setCurrentPage(page)}
+                  />
                 </div>
               </div>
             </div>
