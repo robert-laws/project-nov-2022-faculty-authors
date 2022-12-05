@@ -1,5 +1,5 @@
 import React from 'react';
-import { usePagination } from '../hooks/usePagination';
+import { usePagination, DOTS } from '../hooks/usePagination';
 import {
   ArrowLongLeftIcon,
   ArrowLongRightIcon,
@@ -52,11 +52,11 @@ export const Pagination = (props) => {
           </button>
         </div>
         <div className='hidden md:-mt-px md:flex'>
-          {paginationRange.map((pageNumber) => {
-            if (pageNumber === '...') {
+          {paginationRange.map((pageNumber, index) => {
+            if (pageNumber === DOTS) {
               return (
                 <span
-                  key={pageNumber}
+                  key={index}
                   className='inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500'
                 >
                   ...
@@ -67,7 +67,7 @@ export const Pagination = (props) => {
             if (pageNumber === currentPage) {
               return (
                 <button
-                  key={pageNumber}
+                  key={index}
                   onClick={() => onPageChange(pageNumber)}
                   className='inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600'
                 >
@@ -80,7 +80,7 @@ export const Pagination = (props) => {
               <button
                 className='inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700'
                 onClick={() => onPageChange(pageNumber)}
-                key={pageNumber}
+                key={index}
               >
                 {pageNumber}
               </button>

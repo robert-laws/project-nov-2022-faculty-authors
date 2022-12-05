@@ -80,7 +80,9 @@ export const Publications = () => {
                     </thead>
                     <tbody className='divide-y divide-gray-200 bg-white'>
                       {isLoading && !publicationsError ? (
-                        <div>Loading...</div>
+                        <tr>
+                          <td>Loading...</td>
+                        </tr>
                       ) : (
                         <>
                           {currentTableData.map((publication) => (
