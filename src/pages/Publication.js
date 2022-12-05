@@ -21,6 +21,21 @@ export const Publication = () => {
     }
   }, [id, loadPublication]);
 
+  if (publicationError) {
+    return (
+      <>
+        <Navigation />
+        <div className='mx-auto max-w-7xl my-4 sm:px-6 lg:px-8'>
+          <div className='overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg'>
+            <div className='text-center text-red-500 m-5'>
+              {publicationError}
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Navigation />
