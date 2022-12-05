@@ -101,13 +101,13 @@ export const Publications = () => {
                       )}
                     </tbody>
                   </table>
-                  <Pagination
-                    currentPage={currentPage}
-                    totalCount={publications.length}
-                    pageSize={pageSize}
-                    onPageChange={(page) => setCurrentPage(page)}
-                  />
                 </div>
+                <Pagination
+                  currentPage={currentPage}
+                  totalCount={publications.length}
+                  pageSize={pageSize}
+                  onPageChange={(page) => setCurrentPage(page)}
+                />
               </div>
             </div>
           </div>
