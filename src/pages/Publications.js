@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState, useMemo } from 'react';
 import PublicationsContext from '../context/publications/publicationsContext';
 import { ListItem, Navigation, Pagination } from '../components';
 
-let pageSize = 10;
-
 export const Publications = () => {
   const {
     publications,
@@ -13,6 +11,7 @@ export const Publications = () => {
     unloadPublication,
   } = useContext(PublicationsContext);
 
+  const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
 
   const currentTableData = useMemo(() => {
@@ -20,7 +19,7 @@ export const Publications = () => {
     const lastPageIndex = firstPageIndex + pageSize;
 
     return publications.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, publications]);
+  }, [currentPage, publications, pageSize]);
 
   useEffect(() => {
     if (publications.length === 0) {
@@ -110,6 +109,26 @@ export const Publications = () => {
                   pageSize={pageSize}
                   onPageChange={(page) => setCurrentPage(page)}
                 />
+                <hr className='my-4' />
+                <div>
+                  <label
+                    htmlFor='pageSizeSelect'
+                    className='block text-sm font-medium text-gray-700'
+                  >
+                    Show Number of Rows
+                  </label>
+                  <select
+                    name='pageSizeSelect'
+                    id='pageSizeSelect'
+                    className='mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+                    defaultValue='10'
+                    onChange={(e) => setPageSize(Number(e.target.value))}
+                  >
+                    <option value='10'>10</option>
+                    <option value='25'>25</option>
+                    <option value='50'>50</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
