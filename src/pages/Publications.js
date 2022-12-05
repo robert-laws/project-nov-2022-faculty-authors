@@ -13,6 +13,7 @@ export const Publications = () => {
 
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [documentTypesArray, setDocumentTypesArray] = useState([]);
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSize;
@@ -20,6 +21,48 @@ export const Publications = () => {
 
     return publications.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, publications, pageSize]);
+
+  const addEntries = (array, field) => {
+    const data = {};
+
+    array.forEach((item) => {
+      const dataField = item[field];
+
+      if (data[dataField]) {
+        data[dataField]++;
+      } else {
+        data[dataField] = 1;
+      }
+    });
+
+    return data;
+  };
+
+  const addAndSortEntries = (array, field) => {
+    const data = {};
+
+    array.forEach((item) => {
+      const dataField = item[field];
+
+      if (data[dataField]) {
+        data[dataField]++;
+      } else {
+        data[dataField] = 1;
+      }
+    });
+
+    let sortable = [];
+
+    for (let field in data) {
+      sortable.push([field, data[field]]);
+    }
+
+    sortable.sort(function (a, b) {
+      return b[1] - a[1];
+    });
+
+    return sortable;
+  };
 
   useEffect(() => {
     if (publications.length === 0) {
@@ -30,6 +73,15 @@ export const Publications = () => {
       unloadPublication();
     };
   }, [publications, loadPublications, unloadPublication]);
+
+  useEffect(() => {
+    if (publications) {
+      let documentTypes = addAndSortEntries(publications, 'documentType');
+      setDocumentTypesArray(documentTypes);
+    }
+  }, [publications]);
+
+  // console.log(documentTypesArray);
 
   return (
     <>
@@ -128,6 +180,13 @@ export const Publications = () => {
                     <option value='25'>25</option>
                     <option value='50'>50</option>
                   </select>
+                  <hr className='my-4' />
+                  {documentTypesArray.length > 0 &&
+                    documentTypesArray.map((item, index) => (
+                      <div key={index}>
+                        {item[0]} ({item[1]})
+                      </div>
+                    ))}
                 </div>
               </div>
             </div>
