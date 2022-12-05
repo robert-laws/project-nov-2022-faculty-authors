@@ -14,6 +14,8 @@ export const Publications = () => {
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [documentTypesArray, setDocumentTypesArray] = useState([]);
+  const [languageArray, setLanguageArray] = useState([]);
+  const [yearArray, setYearArray] = useState([]);
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSize;
@@ -78,6 +80,21 @@ export const Publications = () => {
     if (publications) {
       let documentTypes = addAndSortEntries(publications, 'documentType');
       setDocumentTypesArray(documentTypes);
+    }
+  }, [publications]);
+
+  useEffect(() => {
+    if (publications) {
+      let languages = addAndSortEntries(publications, 'language');
+      setLanguageArray(languages);
+    }
+  }, [publications]);
+
+  useEffect(() => {
+    if (publications) {
+      let years = addEntries(publications, 'year');
+      let result = Object.entries(years).reverse();
+      setYearArray(result);
     }
   }, [publications]);
 
@@ -188,7 +205,23 @@ export const Publications = () => {
                       </div>
                     ))}
                 </div>
+                <hr className='my-4' />
+                {languageArray.length > 0 &&
+                  languageArray.map((item, index) => (
+                    <div key={index}>
+                      {item[0] === ''
+                        ? `No Language Provided (${item[1]})`
+                        : `${item[0]} (${item[1]})`}
+                    </div>
+                  ))}
               </div>
+              <hr className='my-4' />
+              {yearArray.length > 0 &&
+                yearArray.map((item, index) => (
+                  <div key={index}>
+                    {item[0]} ({item[1]})
+                  </div>
+                ))}
             </div>
           </div>
         </div>
