@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useMemo } from 'react';
 import PublicationsContext from '../context/publications/publicationsContext';
-import { ListItem, Navigation, Pagination } from '../components';
+import { ListItem, Navigation, Pagination, CheckboxList } from '../components';
 
 export const Publications = () => {
   const {
@@ -198,30 +198,35 @@ export const Publications = () => {
                     <option value='50'>50</option>
                   </select>
                   <hr className='my-4' />
+                  <CheckboxList
+                    listName='docTypes'
+                    boxItems={documentTypesArray}
+                    checkedList={[]}
+                  />
                   {documentTypesArray.length > 0 &&
                     documentTypesArray.map((item, index) => (
                       <div key={index}>
                         {item[0]} ({item[1]})
                       </div>
                     ))}
+                  <hr className='my-4' />
+                  {languageArray.length > 0 &&
+                    languageArray.map((item, index) => (
+                      <div key={index}>
+                        {item[0] === ''
+                          ? `No Language Provided (${item[1]})`
+                          : `${item[0]} (${item[1]})`}
+                      </div>
+                    ))}
+                  <hr className='my-4' />
+                  {yearArray.length > 0 &&
+                    yearArray.map((item, index) => (
+                      <div key={index}>
+                        {item[0]} ({item[1]})
+                      </div>
+                    ))}
                 </div>
-                <hr className='my-4' />
-                {languageArray.length > 0 &&
-                  languageArray.map((item, index) => (
-                    <div key={index}>
-                      {item[0] === ''
-                        ? `No Language Provided (${item[1]})`
-                        : `${item[0]} (${item[1]})`}
-                    </div>
-                  ))}
               </div>
-              <hr className='my-4' />
-              {yearArray.length > 0 &&
-                yearArray.map((item, index) => (
-                  <div key={index}>
-                    {item[0]} ({item[1]})
-                  </div>
-                ))}
             </div>
           </div>
         </div>
