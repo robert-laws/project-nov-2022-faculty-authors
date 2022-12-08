@@ -15,6 +15,7 @@ export const Publications = () => {
     publicationsError,
     loadPublications,
     unloadPublication,
+    filterPublications,
   } = useContext(PublicationsContext);
 
   const [pageSize, setPageSize] = useState(10);
@@ -112,7 +113,9 @@ export const Publications = () => {
     }
   }, [publications]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    filterPublications(formValues);
+  }, [formValues, filterPublications]);
 
   // console.log(documentTypesArray);
 

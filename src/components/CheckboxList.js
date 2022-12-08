@@ -20,7 +20,7 @@ export const CheckboxList = ({ listName, boxItems, checkedList, onInput }) => {
     onInput(listName, checkBoxes);
   }, [listName, checkBoxes, onInput]);
 
-  console.log(checkBoxes);
+  // console.log(checkBoxes);
 
   return (
     <fieldset className='space-y-5'>

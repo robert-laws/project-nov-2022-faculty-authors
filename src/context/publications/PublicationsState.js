@@ -7,6 +7,7 @@ import {
   LOAD_PUBLICATION,
   UNLOAD_PUBLICATION,
   PUBLICATION_ERROR,
+  FILTER_PUBLICATIONS,
 } from '../types';
 import PublicationsContext from './publicationsContext';
 import publicationsReducer from './publicationsReducer';
@@ -78,6 +79,20 @@ const PublicationsState = ({ children }) => {
     dispatch({ type: UNLOAD_PUBLICATION, payload: null });
   }, [dispatch]);
 
+  const filterPublications = useCallback(
+    (filters) => {
+      if (filters['docTypes']) {
+        dispatch({
+          type: FILTER_PUBLICATIONS,
+          payload: filters['docTypes'],
+        });
+      }
+      console.log(filters['docTypes']);
+      // dispatch({ type: FILTER_PUBLICATIONS, payload: filters });
+    },
+    [dispatch]
+  );
+
   return (
     <PublicationsContext.Provider
       value={{
@@ -90,6 +105,7 @@ const PublicationsState = ({ children }) => {
         loadPublications,
         loadPublication,
         unloadPublication,
+        filterPublications,
       }}
     >
       {children}

@@ -4,6 +4,7 @@ import {
   LOAD_PUBLICATION,
   UNLOAD_PUBLICATION,
   PUBLICATION_ERROR,
+  FILTER_PUBLICATIONS,
 } from '../types';
 
 const publicationsReducer = (state, action) => {
@@ -48,6 +49,14 @@ const publicationsReducer = (state, action) => {
         isLoading: false,
         isPublicationLoading: false,
         publicationError: action.payload,
+      };
+
+    case FILTER_PUBLICATIONS:
+      return {
+        ...state,
+        publications: state.publications.filter((publication) =>
+          publication.documentType.includes(action.payload)
+        ),
       };
 
     default:
