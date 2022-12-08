@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from 'react';
 import PublicationsContext from '../context/publications/publicationsContext';
 import { ListItem, Navigation, Pagination, CheckboxList } from '../components';
 
@@ -16,6 +22,8 @@ export const Publications = () => {
   const [documentTypesArray, setDocumentTypesArray] = useState([]);
   const [languageArray, setLanguageArray] = useState([]);
   const [yearArray, setYearArray] = useState([]);
+
+  const [formValues, setFormValues] = useState({});
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSize;
@@ -66,6 +74,12 @@ export const Publications = () => {
     return sortable;
   };
 
+  const inputHandler = useCallback((inputName, value) => {
+    setFormValues((prevState) => {
+      return { ...prevState, [inputName]: value };
+    });
+  }, []);
+
   useEffect(() => {
     if (publications.length === 0) {
       loadPublications();
@@ -97,6 +111,8 @@ export const Publications = () => {
       setYearArray(result);
     }
   }, [publications]);
+
+  useEffect(() => {}, []);
 
   // console.log(documentTypesArray);
 
@@ -202,6 +218,7 @@ export const Publications = () => {
                     listName='docTypes'
                     boxItems={documentTypesArray}
                     checkedList={[]}
+                    onInput={inputHandler}
                   />
                   {documentTypesArray.length > 0 &&
                     documentTypesArray.map((item, index) => (
